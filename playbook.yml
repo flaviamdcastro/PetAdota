@@ -1,0 +1,18 @@
+---
+- hosts: all # Aplica a todos os hosts definidos no inventário
+  become: true # Necessário para executar comandos com privilégios de administrador (sudo)
+  tasks:
+    - name: Atualizar cache do apt
+      apt:
+        update_cache: yes
+
+    - name: Instalar o Apache
+      apt:
+        name: apache2
+        state: present # Garante que o Apache esteja instalado
+
+    - name: Iniciar o serviço Apache
+      service:
+        name: apache2
+        state: started
+        enabled: yes # Garante que o Apache inicie automaticamente na inicialização do sistema
